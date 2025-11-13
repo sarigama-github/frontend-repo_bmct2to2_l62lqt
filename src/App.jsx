@@ -293,7 +293,7 @@ export default function App() {
                       <Badge key={t}>{t}</Badge>
                     ))}
                   </div>
-                </a)
+                </a>
               ))}
             </div>
           </Section>
