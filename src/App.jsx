@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import Spline from '@splinetool/react-spline'
-import { Github, Linkedin, Mail, Twitter, ExternalLink, Link as LinkIcon, Menu, X, ChevronDown, Star, BookOpen, Code2, Layers, Hammer, Briefcase, Calendar, Tag, PlayCircle } from 'lucide-react'
+import { Github, Linkedin, Mail, Twitter, ExternalLink, Link as LinkIcon, Menu, ChevronDown, Star, BookOpen, Code2, Layers, Hammer, Briefcase, Calendar, Tag, PlayCircle } from 'lucide-react'
 
 function Badge({ children }) {
   return (
@@ -19,8 +19,10 @@ function Section({ id, title, children, icon: Icon }) {
           {title}
         </h2>
       </div>
-      <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 shadow-sm">
-        <div className="p-4 sm:p-6">{children}</div>
+      <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/70 shadow-sm overflow-hidden relative">
+        {/* subtle gradient accent */}
+        <div className="pointer-events-none absolute -top-10 -right-10 h-40 w-40 rounded-full bg-gradient-to-br from-neutral-200/60 to-transparent dark:from-neutral-800/60 blur-2xl" />
+        <div className="p-4 sm:p-6 relative">{children}</div>
       </div>
     </section>
   )
@@ -35,9 +37,9 @@ export default function App() {
   const [githubUser, setGithubUser] = useState('vercel')
   const [repos, setRepos] = useState([])
   const [blogs] = useState(() => [
-    { title: 'Designing with Constraints', date: '2024-08-12', tags: ['design', 'systems'] },
-    { title: 'Building a Notion-style UI in React', date: '2024-05-03', tags: ['react', 'ui'] },
-    { title: 'From Idea to Prototype in a Day', date: '2024-02-19', tags: ['product', 'speed'] },
+    { title: 'Designing with Constraints', date: '2024-08-12', tags: ['design', 'systems'], img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=900&auto=format&fit=crop' },
+    { title: 'Building a Notion-style UI in React', date: '2024-05-03', tags: ['react', 'ui'], img: 'https://images.unsplash.com/photo-1559163179-87a949b3513b?q=80&w=900&auto=format&fit=crop' },
+    { title: 'From Idea to Prototype in a Day', date: '2024-02-19', tags: ['product', 'speed'], img: 'https://images.unsplash.com/photo-1529336953121-ad0d5a67b2f0?q=80&w=900&auto=format&fit=crop' },
   ])
 
   useEffect(() => {
@@ -115,9 +117,9 @@ export default function App() {
               <a
                 key={n.id}
                 href={`#${n.id}`}
-                className="flex items-center justify-between px-2 py-1.5 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-sm"
+                className="group flex items-center justify-between px-2 py-1.5 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-sm transition"
               >
-                <span>{n.label}</span>
+                <span className="group-hover:translate-x-0.5 transition-transform">{n.label}</span>
                 <ChevronDown className="h-3 w-3 text-neutral-400 rotate-[-90deg]" />
               </a>
             ))}
@@ -127,14 +129,16 @@ export default function App() {
         {/* Main content */}
         <main className="col-span-12 lg:col-span-8 space-y-8">
           {/* Hero with Spline */}
-          <section className="rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 shadow-sm">
+          <section className="rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 shadow-sm">
             <div className="grid md:grid-cols-2">
-              <div className="p-6 flex flex-col justify-center gap-4">
+              <div className="relative p-6 flex flex-col justify-center gap-5">
+                {/* floating accents */}
+                <div className="pointer-events-none absolute -left-10 top-4 h-28 w-28 rounded-full bg-neutral-200/60 dark:bg-neutral-800/60 blur-2xl" />
                 <div className="flex items-center gap-3">
                   <img
                     alt="Profile"
                     src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=256&auto=format&fit=crop"
-                    className="h-12 w-12 rounded-md object-cover"
+                    className="h-14 w-14 rounded-xl object-cover ring-1 ring-neutral-200 dark:ring-neutral-800"
                   />
                   <div>
                     <h2 className="text-xl font-semibold tracking-tight">Your Name</h2>
@@ -159,7 +163,7 @@ export default function App() {
                   </a>
                 </div>
               </div>
-              <div className="h-[280px] sm:h-[360px] md:h-full bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-900 dark:to-neutral-800">
+              <div className="h-[300px] sm:h-[360px] md:h-full bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-900 dark:to-neutral-800">
                 <Spline scene="https://prod.spline.design/VJLoxp84lCdVfdZu/scene.splinecode" style={{ width: '100%', height: '100%' }} />
               </div>
             </div>
@@ -185,20 +189,27 @@ export default function App() {
                   role: 'Frontend Engineer',
                   company: 'Acme Inc.',
                   period: '2023 – Present',
-                  bullets: ['Led redesign with Notion-like system', 'Improved LCP by 35%', 'Built component library']
+                  bullets: ['Led redesign with Notion-like system', 'Improved LCP by 35%', 'Built component library'],
+                  logo: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=256&auto=format&fit=crop'
                 },
                 {
                   role: 'Software Engineer',
                   company: 'Globex',
                   period: '2021 – 2023',
-                  bullets: ['Shipped real-time dashboards', 'Maintained CI/CD pipelines', 'Mentored junior engineers']
+                  bullets: ['Shipped real-time dashboards', 'Maintained CI/CD pipelines', 'Mentored junior engineers'],
+                  logo: 'https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=256&auto=format&fit=crop'
                 },
               ].map((e, i) => (
                 <div key={i} className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-4">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div className="font-medium">{e.role} • {e.company}</div>
-                    <div className="text-sm text-neutral-500 flex items-center gap-1">
-                      <Calendar className="h-3.5 w-3.5" /> {e.period}
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <img src={e.logo} alt="logo" className="h-9 w-9 rounded-md object-cover" />
+                      <div>
+                        <div className="font-medium">{e.role} • {e.company}</div>
+                        <div className="text-sm text-neutral-500 flex items-center gap-1">
+                          <Calendar className="h-3.5 w-3.5" /> {e.period}
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <ul className="mt-2 list-disc pl-5 text-sm text-neutral-600 dark:text-neutral-300 space-y-1">
@@ -218,38 +229,47 @@ export default function App() {
                   title: 'Notion-Portfolio',
                   desc: 'A minimal portfolio template with Notion vibes.',
                   tags: ['react', 'tailwind'],
-                  link: '#'
+                  link: '#',
+                  img: 'https://images.unsplash.com/photo-1551033406-611cf9a28f67?q=80&w=1200&auto=format&fit=crop'
                 },
                 {
                   title: 'AI Notes',
                   desc: 'Semantic search and summarization for notes.',
                   tags: ['ai', 'vectordb'],
-                  link: '#'
+                  link: '#',
+                  img: 'https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=1200&auto=format&fit=crop'
                 },
                 {
                   title: 'Design System',
                   desc: 'Token-based system with theming and motion.',
                   tags: ['design', 'system'],
-                  link: '#'
+                  link: '#',
+                  img: 'https://images.unsplash.com/photo-1506084868230-bb9d95c24759?q=80&w=1200&auto=format&fit=crop'
                 },
                 {
                   title: 'Open Widget Kit',
                   desc: 'Embeddable widgets for dashboards.',
                   tags: ['widgets', 'oss'],
-                  link: '#'
+                  link: '#',
+                  img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop'
                 },
               ].map((p, i) => (
-                <a key={i} href={p.link} className="group rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:shadow-sm transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-900">
-                  <div className="aspect-video mb-3 rounded-md bg-neutral-100 dark:bg-neutral-800" />
-                  <div className="flex items-center justify-between">
-                    <div className="font-medium group-hover:underline underline-offset-4">{p.title}</div>
-                    <ExternalLink className="h-4 w-4 text-neutral-400" />
+                <a key={i} href={p.link} className="group rounded-xl border border-neutral-200 dark:border-neutral-800 overflow-hidden hover:shadow-sm transition-colors bg-white/60 dark:bg-neutral-900/60">
+                  <div className="aspect-video relative overflow-hidden">
+                    <img src={p.img} alt={p.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                   </div>
-                  <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">{p.desc}</p>
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {p.tags.map((t) => (
-                      <Badge key={t}>{t}</Badge>
-                    ))}
+                  <div className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="font-medium group-hover:underline underline-offset-4">{p.title}</div>
+                      <ExternalLink className="h-4 w-4 text-neutral-400" />
+                    </div>
+                    <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">{p.desc}</p>
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {p.tags.map((t) => (
+                        <Badge key={t}>{t}</Badge>
+                      ))}
+                    </div>
                   </div>
                 </a>
               ))}
@@ -281,17 +301,22 @@ export default function App() {
           <Section id="blogs" title="Blogs" icon={BookOpen}>
             <div className="grid sm:grid-cols-2 gap-4">
               {blogs.map((b, i) => (
-                <a key={i} href="#" className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition">
-                  <div className="flex items-center justify-between">
-                    <div className="font-medium hover:underline underline-offset-4">{b.title}</div>
-                    <div className="text-xs text-neutral-500 flex items-center gap-1">
-                      <Calendar className="h-3.5 w-3.5" /> {b.date}
-                    </div>
+                <a key={i} href="#" className="group rounded-xl border border-neutral-200 dark:border-neutral-800 overflow-hidden hover:bg-neutral-50 dark:hover:bg-neutral-900 transition bg-white/60 dark:bg-neutral-900/60">
+                  <div className="aspect-[16/9] overflow-hidden">
+                    <img src={b.img} alt="cover" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
                   </div>
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {b.tags.map((t) => (
-                      <Badge key={t}>{t}</Badge>
-                    ))}
+                  <div className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="font-medium group-hover:underline underline-offset-4">{b.title}</div>
+                      <div className="text-xs text-neutral-500 flex items-center gap-1">
+                        <Calendar className="h-3.5 w-3.5" /> {b.date}
+                      </div>
+                    </div>
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {b.tags.map((t) => (
+                        <Badge key={t}>{t}</Badge>
+                      ))}
+                    </div>
                   </div>
                 </a>
               ))}
@@ -310,7 +335,7 @@ export default function App() {
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 {repos.map((r) => (
-                  <a key={r.id} href={r.html_url} target="_blank" rel="noreferrer" className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition">
+                  <a key={r.id} href={r.html_url} target="_blank" rel="noreferrer" className="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition bg-white/60 dark:bg-neutral-900/60">
                     <div className="flex items-center justify-between">
                       <div className="font-medium hover:underline underline-offset-4 inline-flex items-center gap-2">
                         <Github className="h-4 w-4" /> {r.name}
@@ -337,7 +362,7 @@ export default function App() {
 
           <Section id="contact" title="Contact" icon={LinkIcon}>
             <div className="grid sm:grid-cols-2 gap-4">
-              <form className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 space-y-3">
+              <form className="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4 space-y-3 bg-white/60 dark:bg-neutral-900/60">
                 <input className="w-full px-3 py-2 rounded-md border border-neutral-200 dark:border-neutral-800 bg-transparent" placeholder="Your name" />
                 <input className="w-full px-3 py-2 rounded-md border border-neutral-200 dark:border-neutral-800 bg-transparent" placeholder="Email" />
                 <textarea rows={4} className="w-full px-3 py-2 rounded-md border border-neutral-200 dark:border-neutral-800 bg-transparent" placeholder="Message" />
@@ -345,7 +370,7 @@ export default function App() {
                   <Mail className="h-4 w-4" /> Send
                 </button>
               </form>
-              <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-4">
+              <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4 bg-white/60 dark:bg-neutral-900/60">
                 <div className="font-medium mb-2">Links</div>
                 <div className="space-y-2 text-sm">
                   <a className="flex items-center gap-2 hover:underline" href="mailto:you@example.com"><Mail className="h-4 w-4" /> you@example.com</a>
@@ -361,7 +386,7 @@ export default function App() {
         {/* Right sidebar */}
         <aside className={`col-span-12 lg:col-span-2 ${rightOpen ? 'block' : 'hidden lg:block'}`}>
           <div className="sticky top-20 space-y-4">
-            <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-4">
+            <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4 bg-white/60 dark:bg-neutral-900/60">
               <div className="font-medium mb-1">Currently Learning</div>
               <div className="flex flex-wrap gap-1.5">
                 {['Rust', 'tRPC', 'Agents', 'RAG'].map((t) => (
@@ -369,11 +394,17 @@ export default function App() {
                 ))}
               </div>
             </div>
-            <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-4">
+            <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4 bg-white/60 dark:bg-neutral-900/60">
               <div className="font-medium mb-1 inline-flex items-center gap-2"><PlayCircle className="h-4 w-4" /> Now Playing</div>
-              <div className="text-sm text-neutral-600 dark:text-neutral-300">lofi beats to think and code to</div>
+              <div className="mt-2 flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=256&auto=format&fit=crop" alt="album" className="h-12 w-12 rounded-md object-cover" />
+                <div>
+                  <div className="text-sm font-medium">Lofi Coding Beats</div>
+                  <div className="text-xs text-neutral-500">Focus • Chillhop</div>
+                </div>
+              </div>
             </div>
-            <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-4">
+            <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4 bg-white/60 dark:bg-neutral-900/60">
               <div className="font-medium mb-1 inline-flex items-center gap-2"><Hammer className="h-4 w-4" /> Toolbox</div>
               <div className="flex flex-wrap gap-1.5">
                 {['VS Code', 'Raycast', 'Arc', 'Figma'].map((t) => (
